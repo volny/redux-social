@@ -6,6 +6,7 @@ import store, { history } from 'store'
 import App from 'containers/app'
 import registerServiceWorker from 'registerServiceWorker'
 
+import 'typeface-clear-sans'
 import 'index.css'
 
 const target = document.querySelector('#root')
