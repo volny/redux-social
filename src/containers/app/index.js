@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import Home from 'components/home'
 import Navigation from 'components/navigation'
+import Authenticate from 'components/authenticate'
 
 const MainContainer = styled.div`
   width: 100%;
@@ -16,10 +17,11 @@ const InnerContainer = styled.div`
 
 const App = () => (
   <div>
-    <Navigation isAuthed={true} />
+    <Navigation isAuthed={false} />
     <main>
       <MainContainer>
         <InnerContainer>
+          <Route exact path="/login" component={Authenticate} />
           <Route exact path="/" component={Home} />
         </InnerContainer>
       </MainContainer>
