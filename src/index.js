@@ -7,7 +7,7 @@ import App from 'containers/app'
 import registerServiceWorker from 'registerServiceWorker'
 
 import 'typeface-clear-sans'
-import 'index.css'
+import 'styles/index.css'
 
 const target = document.querySelector('#root')
 
@@ -19,7 +19,7 @@ render(
       </div>
     </ConnectedRouter>
   </Provider>,
-  target
+  target,
 )
 
 registerServiceWorker()

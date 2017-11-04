@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
 import Authenticate from 'components/authenticate'
 import auth from 'helpers/auth'

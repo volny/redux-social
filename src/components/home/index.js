@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ContentContainer, PageTitle, PageSubTitle } from 'sharedStyles'
+import { ContentContainer, PageTitle, PageSubTitle } from 'styles/sharedStyles'
 
 const Home = props => (
   <ContentContainer>

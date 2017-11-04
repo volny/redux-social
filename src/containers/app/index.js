@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import Home from 'components/home'
 import Navigation from 'components/navigation'
-import Authenticate from 'components/authenticate'
+import Authenticate from 'containers/authenticate'
 
 const MainContainer = styled.div`
   width: 100%;
