@@ -2,9 +2,9 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import styled from 'styled-components'
 
-import Home from 'components/home'
-import Navigation from 'components/navigation'
-import Authenticate from 'containers/authenticate'
+import Home from 'components/Home'
+import Navigation from 'components/Navigation'
+import Authenticate from 'containers/AuthenticateContainer'
 
 const MainContainer = styled.div`
   width: 100%;

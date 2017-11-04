@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import Authenticate from 'components/authenticate'
+import Authenticate from 'components/Authenticate'
 import auth from 'helpers/auth'
 
 class AuthenticateContainer extends Component {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { ContentContainer, PageTitle, PageSubTitle, ErrorMessage } from 'styles/sharedStyles'
-import AuthButton from 'components/authButton'
+import AuthButton from 'components/AuthButton'
 
 const ButtonContainer = styled.div`
   padding: 2rem 0;
