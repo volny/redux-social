@@ -1,9 +1,9 @@
 import React from 'react'
-import { Route, Link } from 'react-router-dom'
-import Headroom from 'react-headroom'
+import { Route } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Home from 'components/home'
+import Navigation from 'components/navigation'
 
 const MainContainer = styled.div`
   width: 100%;
@@ -16,9 +16,7 @@ const InnerContainer = styled.div`
 
 const App = () => (
   <div>
-    <Headroom style={{ minHeight: '80px', background: '#e5e5e5' }}>
-      <Link to="/">Home</Link>
-    </Headroom>
+    <Navigation isAuthed={true} />
     <main>
       <MainContainer>
         <InnerContainer>
