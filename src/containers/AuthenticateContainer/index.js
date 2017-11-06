@@ -1,17 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import Authenticate from 'components/Authenticate'
 import auth from 'helpers/auth'
 import * as userActions from 'modules/users'
 
-const handleAuth = async ({ dispatch }) => {
-  dispatch(userActions.fetchingUser())
+const handleAuth = async ({ fetchingUser, fetchingUserSuccess, authUser }) => {
+  fetchingUser()
   try {
     const user = await auth()
-    dispatch(userActions.fetchingUserSuccess(user.uid, user, Date.now()))
-    dispatch(userActions.authUser(user.uid))
+    fetchingUserSuccess(user.uid, user, Date.now())
+    authUser(user.uid)
   } catch (error) {
     userActions.fetchingUserFailure(error)
   }
@@ -24,6 +25,10 @@ const AuthenticateContainer = props => (
 AuthenticateContainer.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
+  authUser: PropTypes.func.isRequired,
+  fetchingUser: PropTypes.func.isRequired,
+  fetchingUserSuccess: PropTypes.func.isRequired,
+  fetchingUserFailure: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = ({ users: { isFetching, error } }) => ({
@@ -31,13 +36,6 @@ const mapStateToProps = ({ users: { isFetching, error } }) => ({
   error,
 })
 
-// const mapStateToProps = state => {
-//   console.log(state.users)
-//   return {
-//     isFetching: state.users.isFetching,
-//     error: state.users.error,
-//   }
-// }
+const mapDispatchToProps = dispatch => bindActionCreators(userActions, dispatch)
 
-// https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
-export default connect(mapStateToProps)(AuthenticateContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(AuthenticateContainer)
