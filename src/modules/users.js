@@ -72,7 +72,7 @@ const initialState = {
   authedID: '',
 }
 
-const reducer = (state = initialState, action) => {
+const users = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_USER:
       return {
@@ -115,4 +115,4 @@ const reducer = (state = initialState, action) => {
   }
 }
 
-export default reducer
+export default users
