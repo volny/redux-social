@@ -1,5 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 
 import Home from 'components/Home'
@@ -15,9 +17,9 @@ const InnerContainer = styled.div`
   margin: 0 auto;
 `
 
-const App = () => (
+const App = ({ isAuthed }) => (
   <div>
-    <Navigation isAuthed={false} />
+    <Navigation isAuthed={isAuthed} />
     <main>
       <MainContainer>
         <InnerContainer>
@@ -29,4 +31,8 @@ const App = () => (
   </div>
 )
 
-export default App
+App.propTypes = {
+  isAuthed: PropTypes.bool.isRequired,
+}
+
+export default connect(({ users: { isAuthed } }) => ({ isAuthed }))(App)
