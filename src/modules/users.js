@@ -3,6 +3,8 @@
 
 // ACTIONS
 
+import auth from 'helpers/auth'
+
 const AUTH_USER = 'AUTH_USER'
 const UNAUTH_USER = 'UNAUTH_USER'
 const FETCHING_USER = 'FETCHING_USER'
@@ -11,20 +13,16 @@ const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS'
 
 // ACTION CREATORS
 
-export const authUser = uid => ({
+const authUser = uid => ({
   type: AUTH_USER,
   uid,
 })
 
-export const unauthUser = () => ({
-  type: UNAUTH_USER,
-})
-
-export const fetchingUser = () => ({
+const fetchingUser = () => ({
   type: FETCHING_USER,
 })
 
-export const fetchingUserFailure = error => {
+const fetchingUserFailure = error => {
   console.warn(error)
   return {
     type: FETCHING_USER_FAILURE,
@@ -32,7 +30,7 @@ export const fetchingUserFailure = error => {
   }
 }
 
-export const fetchingUserSuccess = (uid, user, timestamp) => {
+const fetchingUserSuccess = (uid, user, timestamp) => {
   return {
     type: FETCHING_USER_SUCCESS,
     uid,
@@ -40,6 +38,21 @@ export const fetchingUserSuccess = (uid, user, timestamp) => {
     timestamp,
   }
 }
+
+export const fetchAndHandleAuthedUser = () => async dispatch => {
+  dispatch(fetchingUser())
+  try {
+    const user = await auth()
+    dispatch(fetchingUserSuccess(user.uid, user, Date.now()))
+    return dispatch(authUser(user.uid))
+  } catch (error) {
+    dispatch(fetchingUserFailure(error))
+  }
+}
+
+export const unauthUser = () => ({
+  type: UNAUTH_USER,
+})
 
 // REDUCER
 
