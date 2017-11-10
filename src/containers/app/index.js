@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
@@ -18,6 +18,20 @@ const InnerContainer = styled.div`
   margin: 0 auto;
 `
 
+function PrivateRoute({ component: Component, authed, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        authed === true ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+        )}
+    />
+  )
+}
+
 const App = ({ isAuthed }) => (
   <div>
     <Navigation isAuthed={isAuthed} />
@@ -25,7 +39,7 @@ const App = ({ isAuthed }) => (
       <MainContainer>
         <InnerContainer>
           <Route exact path="/login" component={Authenticate} />
-          <Route exact path="/feed" component={FeedContainer} />
+          <PrivateRoute exact authed={isAuthed} path="/feed" component={FeedContainer} />
           <Route exact path="/" component={Home} />
         </InnerContainer>
       </MainContainer>
