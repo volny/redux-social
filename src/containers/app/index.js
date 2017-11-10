@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import Home from 'components/Home'
 import Navigation from 'components/Navigation'
 import Authenticate from 'containers/AuthenticateContainer'
+import FeedContainer from 'containers/FeedContainer'
 
 const MainContainer = styled.div`
   width: 100%;
@@ -24,6 +25,7 @@ const App = ({ isAuthed }) => (
       <MainContainer>
         <InnerContainer>
           <Route exact path="/login" component={Authenticate} />
+          <Route exact path="/feed" component={FeedContainer} />
           <Route exact path="/" component={Home} />
         </InnerContainer>
       </MainContainer>
