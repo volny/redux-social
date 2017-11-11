@@ -43,7 +43,7 @@ const NavLinks = ({ isAuthed }) =>
   isAuthed === true ? (
     <NavList>
       <NavListItem>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/">{'Home'}</NavLink>
       </NavListItem>
     </NavList>
   ) : null
@@ -61,7 +61,7 @@ const ActionLinks = ({ isAuthed }) =>
   ) : (
     <NavList>
       <NavListItem>
-        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/login">{'Login'}</NavLink>
       </NavListItem>
     </NavList>
   )
@@ -76,7 +76,7 @@ const Navigation = ({ isAuthed }) => (
 )
 
 Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
-  isAuthed: PropTypes.bool.isRequired
+  isAuthed: PropTypes.bool.isRequired,
 }
 
 export default Navigation

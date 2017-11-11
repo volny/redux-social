@@ -1,5 +1,5 @@
 // Ducks Redux Pattern
-//https://github.com/erikras/ducks-modular-redux
+// https://github.com/erikras/ducks-modular-redux
 
 // ACTIONS
 
@@ -113,16 +113,16 @@ const users = (state = initialState, action) => {
     case FETCHING_USER_SUCCESS:
       return action.user === null
         ? {
-            ...state,
-            isFetching: false,
-            error: '',
-          }
+          ...state,
+          isFetching: false,
+          error: '',
+        }
         : {
-            ...state,
-            isFetching: false,
-            error: '',
-            [action.uid]: user(state[action.uid], action),
-          }
+          ...state,
+          isFetching: false,
+          error: '',
+          [action.uid]: user(state[action.uid], action),
+        }
     default:
       return state
   }

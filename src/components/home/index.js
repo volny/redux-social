@@ -4,8 +4,8 @@ import { ContentContainer, PageTitle, PageSubTitle } from 'styles/sharedStyles'
 
 const Home = props => (
   <ContentContainer>
-    <PageTitle>App Title</PageTitle>
-    <PageSubTitle>Much Awesome</PageSubTitle>
+    <PageTitle>{'App Title'}</PageTitle>
+    <PageSubTitle>{'Much Awesome'}</PageSubTitle>
   </ContentContainer>
 )
 

@@ -23,7 +23,7 @@ class AuthenticateContainer extends Component {
     this.props.history.push('/feed')
   }
 
-  render() {
+  render () {
     return (
       <Authenticate isFetching={this.props.isFetching} error={this.props.error} onAuth={this.handleAuth} />
     )

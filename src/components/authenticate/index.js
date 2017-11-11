@@ -13,8 +13,8 @@ const ButtonContainer = styled.div`
 
 const Authenticate = ({ error, isFetching, onAuth }) => (
   <ContentContainer>
-    <PageTitle>Login</PageTitle>
-    <PageSubTitle>Choose your favorite way to Login</PageSubTitle>
+    <PageTitle>{'Login'}</PageTitle>
+    <PageSubTitle>{'Choose your favorite way to Login'}</PageSubTitle>
     <ButtonContainer>
       <AuthButton provider="facebook" isFetching={isFetching} onAuth={onAuth} />
       <AuthButton provider="github" isFetching={isFetching} onAuth={onAuth} />

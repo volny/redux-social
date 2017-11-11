@@ -19,7 +19,7 @@ const InnerContainer = styled.div`
   margin: 0 auto;
 `
 
-function PrivateRoute({ component: Component, authed, ...rest }) {
+function PrivateRoute ({ component: Component, authed, ...rest }) {
   return (
     <Route
       {...rest}
@@ -28,9 +28,14 @@ function PrivateRoute({ component: Component, authed, ...rest }) {
           <Component {...props} />
         ) : (
           <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-        )}
-    />
+        )}/>
   )
+}
+
+PrivateRoute.propTypes = {
+  component: PropTypes.func.isRequired,
+  authed: PropTypes.bool.isRequired,
+  location: PropTypes.object,
 }
 
 const App = ({ isAuthed }) => (
@@ -39,9 +44,10 @@ const App = ({ isAuthed }) => (
     <main>
       <MainContainer>
         <InnerContainer>
-          <Route exact path="/login" component={Authenticate} />
-          <PrivateRoute exact authed={isAuthed} path="/feed" component={FeedContainer} />
-          <Route exact path="/" component={Home} />
+          <Route exact={true} path="/login" component={Authenticate} />
+          <PrivateRoute exact={true} authed={isAuthed} path="/feed"
+            component={FeedContainer} />
+          <Route exact={true} path="/" component={Home} />
         </InnerContainer>
       </MainContainer>
     </main>
