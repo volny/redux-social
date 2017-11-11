@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { withRouter } from 'react-router'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -51,4 +52,4 @@ App.propTypes = {
   isAuthed: PropTypes.bool.isRequired,
 }
 
-export default connect(({ users: { isAuthed } }) => ({ isAuthed }))(App)
+export default withRouter(connect(({ users: { isAuthed } }) => ({ isAuthed }))(App))
