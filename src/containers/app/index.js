@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { Route, Redirect } from 'react-router-dom'
@@ -38,24 +38,55 @@ PrivateRoute.propTypes = {
   location: PropTypes.object,
 }
 
-const App = ({ isAuthed }) => (
-  <div>
-    <Navigation isAuthed={isAuthed} />
-    <main>
-      <MainContainer>
-        <InnerContainer>
-          <Route exact={true} path="/login" component={Authenticate} />
-          <PrivateRoute exact={true} authed={isAuthed} path="/feed"
-            component={FeedContainer} />
-          <Route exact={true} path="/" component={Home} />
-        </InnerContainer>
-      </MainContainer>
-    </main>
-  </div>
-)
+function PublicRoute ({ component: Component, authed, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        authed === false ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={{ pathname: '/feed', state: { from: props.location } }} />
+        )}/>
+  )
+}
 
-App.propTypes = {
-  isAuthed: PropTypes.bool.isRequired,
+PublicRoute.propTypes = {
+  component: PropTypes.func.isRequired,
+  authed: PropTypes.bool.isRequired,
+  location: PropTypes.object,
+}
+
+class App extends Component {
+  static propTypes = {
+    isAuthed: PropTypes.bool.isRequired,
+    // withRouter
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+  }
+  render () {
+    return (
+      <div>
+        <Navigation isAuthed={this.props.isAuthed} />
+        <main>
+          <MainContainer>
+            <InnerContainer>
+              <PublicRoute exact={true} authed={this.props.isAuthed} path="/login"
+                component={Authenticate} />
+              <PrivateRoute
+                exact={true}
+                authed={this.props.isAuthed}
+                path="/feed"
+                component={FeedContainer}/>
+              <PublicRoute exact={true} authed={this.props.isAuthed} path="/"
+                component={Home} />
+            </InnerContainer>
+          </MainContainer>
+        </main>
+      </div>
+    )
+  }
 }
 
 export default withRouter(connect(({ users: { isAuthed } }) => ({ isAuthed }))(App))
