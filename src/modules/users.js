@@ -42,7 +42,11 @@ const fetchingUserSuccess = (uid, user, timestamp) => {
 export const fetchAndHandleAuthedUser = () => async dispatch => {
   dispatch(fetchingUser())
   try {
-    const user = await auth()
+    // https://firebase.google.com/docs/auth/web/github-auth
+    const { credential, user } = await auth()
+
+    console.log(credential, user)
+
     dispatch(fetchingUserSuccess(user.uid, user, Date.now()))
     return dispatch(authUser(user.uid))
   } catch (error) {

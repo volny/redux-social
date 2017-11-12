@@ -2,39 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const colorpicker = provider => {
-  switch (provider) {
-    case 'facebook':
-      return {
-        color: '#ffffff',
-        background: '#3B5998',
-      }
-    case 'github':
-      return {
-        color: '#ffffff',
-        background: '#333',
-      }
-    default:
-      return {
-        color: '#ffffff',
-        background: '#aaaaaa',
-      }
-  }
-}
-
 const Button = styled.button`
+  color: #ffffff;
+  background: #aaaaaa;
   padding: 1rem;
   margin: 0.3rem 0;
-  border-radius: 3px;
-  border-width: 0;
+  border-radius: 6px;
+  border-width: 2px;
+  border-color: #dddddd;
   font-size: 20px;
   cursor: pointer;
+  &:hover {
+    background: #dddddd;
+    color: #777777;
+  }
 `
 
 const AuthButton = ({ provider, isFetching, onAuth }) => (
-  <Button onClick={onAuth} style={colorpicker(provider)}>
-    {isFetching === true ? 'Loading' : `Login with ${provider.toUpperCase()}`}
-  </Button>
+  <Button onClick={onAuth}>{isFetching === true ? 'Loading' : `Login with ${provider.toUpperCase()}`}</Button>
 )
 
 AuthButton.propTypes = {

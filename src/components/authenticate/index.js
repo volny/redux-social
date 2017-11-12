@@ -16,7 +16,6 @@ const Authenticate = ({ error, isFetching, onAuth }) => (
     <PageTitle>{'Login'}</PageTitle>
     <PageSubTitle>{'Choose your favorite way to Login'}</PageSubTitle>
     <ButtonContainer>
-      <AuthButton provider="facebook" isFetching={isFetching} onAuth={onAuth} />
       <AuthButton provider="github" isFetching={isFetching} onAuth={onAuth} />
       <AuthButton provider="email" isFetching={isFetching} onAuth={onAuth} />
     </ButtonContainer>

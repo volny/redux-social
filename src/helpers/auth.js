@@ -1,16 +1,16 @@
-const auth = () =>
-  new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve({
-        name: 'Felix Volny',
-        avatar: 'https://pbs.twimg.com/profile_images/889837623971270657/8RVcTqfI_400x400.jpg',
-        uid: 'felixvolny',
-      })
-    }, 1000)
-  })
+import { ref, firebaseAuth } from 'config/constants'
 
-export const logout = () => {
-  console.log('logout')
+const auth = async () => {
+  const provider = new firebaseAuth.GithubAuthProvider()
+  return firebaseAuth().signInWithPopup(provider)
 }
+
+export const saveUser = user =>
+  ref
+    .child(`users/${user.uid}`)
+    .set('user')
+    .then(() => user)
+
+export const logout = () => firebaseAuth.signout()
 
 export default auth
