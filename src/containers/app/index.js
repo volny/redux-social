@@ -9,6 +9,7 @@ import Home from 'components/Home'
 import Navigation from 'components/Navigation'
 import Authenticate from 'containers/AuthenticateContainer'
 import FeedContainer from 'containers/FeedContainer'
+import LogoutContainer from 'containers/LogoutContainer'
 
 const MainContainer = styled.div`
   width: 100%;
@@ -74,6 +75,11 @@ class App extends Component {
             <InnerContainer>
               <PublicRoute exact={true} authed={this.props.isAuthed} path="/login"
                 component={Authenticate} />
+              <PrivateRoute
+                exact={true}
+                authed={this.props.isAuthed}
+                path="/logout"
+                component={LogoutContainer}/>
               <PrivateRoute
                 exact={true}
                 authed={this.props.isAuthed}

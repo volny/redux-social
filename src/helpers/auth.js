@@ -9,4 +9,8 @@ const auth = () =>
     }, 1000)
   })
 
+export const logout = () => {
+  console.log('logout')
+}
+
 export default auth

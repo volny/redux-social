@@ -3,7 +3,7 @@
 
 // ACTIONS
 
-import auth from 'helpers/auth'
+import auth, { logout } from 'helpers/auth'
 
 const AUTH_USER = 'AUTH_USER'
 const UNAUTH_USER = 'UNAUTH_USER'
@@ -53,6 +53,11 @@ export const fetchAndHandleAuthedUser = () => async dispatch => {
 export const unauthUser = () => ({
   type: UNAUTH_USER,
 })
+
+export const logoutAndUnauth = () => dispatch => {
+  logout()
+  dispatch(unauthUser())
+}
 
 // REDUCER
 
