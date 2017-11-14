@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { bindActionCreators } from 'redux'
-import { Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
@@ -14,6 +14,7 @@ import LogoutContainer from 'containers/LogoutContainer'
 import * as userActionsCreators from 'modules/users'
 import { formatUserInfo } from 'helpers/utils'
 import { firebaseAuth } from 'config/constants'
+import { PublicRoute, PrivateRoute } from 'routeTypes.js'
 
 const MainContainer = styled.div`
   width: 100%;
@@ -23,44 +24,6 @@ const InnerContainer = styled.div`
   max-width: 900px;
   margin: 0 auto;
 `
-
-function PrivateRoute ({ component: Component, authed, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        authed === true ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-        )}/>
-  )
-}
-
-PrivateRoute.propTypes = {
-  component: PropTypes.func.isRequired,
-  authed: PropTypes.bool.isRequired,
-  location: PropTypes.object,
-}
-
-function PublicRoute ({ component: Component, authed, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        authed === false ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to={{ pathname: '/feed', state: { from: props.location } }} />
-        )}/>
-  )
-}
-
-PublicRoute.propTypes = {
-  component: PropTypes.func.isRequired,
-  authed: PropTypes.bool.isRequired,
-  location: PropTypes.object,
-}
 
 class App extends Component {
   static propTypes = {
