@@ -11,6 +11,6 @@ export const saveUser = user =>
     .set('user')
     .then(() => user)
 
-export const logout = () => firebaseAuth.signout()
+export const logout = () => firebaseAuth().signOut()
 
 export default auth

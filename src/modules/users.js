@@ -1,19 +1,21 @@
 // Ducks Redux Pattern
 // https://github.com/erikras/ducks-modular-redux
 
-// ACTIONS
+import auth, { logout, saveUser } from 'helpers/auth'
+import { formatUserInfo } from 'helpers/utils'
 
-import auth, { logout } from 'helpers/auth'
+// ACTIONS
 
 const AUTH_USER = 'AUTH_USER'
 const UNAUTH_USER = 'UNAUTH_USER'
 const FETCHING_USER = 'FETCHING_USER'
 const FETCHING_USER_FAILURE = 'FETCHING_USER_FAILURE'
 const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS'
+const REMOVE_FETCHING_USER = 'REMOVE_FETCHING_USER'
 
 // ACTION CREATORS
 
-const authUser = uid => ({
+export const authUser = uid => ({
   type: AUTH_USER,
   uid,
 })
@@ -30,7 +32,7 @@ const fetchingUserFailure = error => {
   }
 }
 
-const fetchingUserSuccess = (uid, user, timestamp) => {
+export const fetchingUserSuccess = (uid, user, timestamp) => {
   return {
     type: FETCHING_USER_SUCCESS,
     uid,
@@ -45,10 +47,16 @@ export const fetchAndHandleAuthedUser = () => async dispatch => {
     // https://firebase.google.com/docs/auth/web/github-auth
     const { credential, user } = await auth()
 
-    console.log(credential, user)
+    const userInfo = formatUserInfo(user.providerData[0])
 
-    dispatch(fetchingUserSuccess(user.uid, user, Date.now()))
-    return dispatch(authUser(user.uid))
+    // TODO fix - { user } is already assigned
+    // const userSuccess = dispatch(fetchingUserSuccess(user.uid, userInfo, Date.now()))
+    // saveUser(userSuccess.user)
+    // dispatch(authUser(userSuccess.user.uid))
+
+    await dispatch(fetchingUserSuccess(user.uid, userInfo, Date.now()))
+    saveUser(user)
+    dispatch(authUser(user.uid))
   } catch (error) {
     dispatch(fetchingUserFailure(error))
   }
@@ -62,6 +70,10 @@ export const logoutAndUnauth = () => dispatch => {
   logout()
   dispatch(unauthUser())
 }
+
+export const removeFetching = () => ({
+  type: REMOVE_FETCHING_USER,
+})
 
 // REDUCER
 
@@ -88,7 +100,7 @@ const user = (state = initialUserState, action) => {
 }
 
 const initialState = {
-  isFetching: false,
+  isFetching: true,
   error: '',
   isAuthed: false,
   authedID: '',
@@ -132,6 +144,11 @@ const users = (state = initialState, action) => {
           error: '',
           [action.uid]: user(state[action.uid], action),
         }
+    case REMOVE_FETCHING_USER:
+      return {
+        ...state,
+        isFetching: false,
+      }
     default:
       return state
   }

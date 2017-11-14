@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
+import { bindActionCreators } from 'redux'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -10,6 +11,9 @@ import Navigation from 'components/Navigation'
 import Authenticate from 'containers/AuthenticateContainer'
 import FeedContainer from 'containers/FeedContainer'
 import LogoutContainer from 'containers/LogoutContainer'
+import * as userActionsCreators from 'modules/users'
+import { formatUserInfo } from 'helpers/utils'
+import { firebaseAuth } from 'config/constants'
 
 const MainContainer = styled.div`
   width: 100%;
@@ -61,13 +65,31 @@ PublicRoute.propTypes = {
 class App extends Component {
   static propTypes = {
     isAuthed: PropTypes.bool.isRequired,
+    authUser: PropTypes.func.isRequired,
+    fetchingUserSuccess: PropTypes.func.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    removeFetching: PropTypes.func.isRequired,
     // withRouter
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
   }
+  componentDidMount () {
+    firebaseAuth().onAuthStateChanged(user => {
+      if (user) {
+        const userInfo = formatUserInfo(user.providerData[0])
+        this.props.authUser(user.uid)
+        this.props.fetchingUserSuccess(user.uid, userInfo, Date.now())
+        if (this.props.location.pathname === '/') {
+          this.props.history.push('feed')
+        }
+      } else {
+        this.props.removeFetching()
+      }
+    })
+  }
   render () {
-    return (
+    return this.props.isFetching === true ? null : (
       <div>
         <Navigation isAuthed={this.props.isAuthed} />
         <main>
@@ -75,11 +97,7 @@ class App extends Component {
             <InnerContainer>
               <PublicRoute exact={true} authed={this.props.isAuthed} path="/login"
                 component={Authenticate} />
-              <PrivateRoute
-                exact={true}
-                authed={this.props.isAuthed}
-                path="/logout"
-                component={LogoutContainer}/>
+              <Route exact={true} path="/logout" component={LogoutContainer} />
               <PrivateRoute
                 exact={true}
                 authed={this.props.isAuthed}
@@ -95,4 +113,9 @@ class App extends Component {
   }
 }
 
-export default withRouter(connect(({ users: { isAuthed } }) => ({ isAuthed }))(App))
+export default withRouter(
+  connect(
+    ({ users: { isAuthed, isFetching } }) => ({ isAuthed, isFetching }),
+    dispatch => bindActionCreators(userActionsCreators, dispatch),
+  )(App),
+)
