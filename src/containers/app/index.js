@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { bindActionCreators } from 'redux'
-import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
@@ -31,7 +30,7 @@ class App extends Component {
     authUser: PropTypes.func.isRequired,
     fetchingUserSuccess: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    removeFetching: PropTypes.func.isRequired,
+    removeFetchingUser: PropTypes.func.isRequired,
     // withRouter
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
@@ -47,7 +46,7 @@ class App extends Component {
           this.props.history.push('feed')
         }
       } else {
-        this.props.removeFetching()
+        this.props.removeFetchingUser()
       }
     })
   }
@@ -60,7 +59,11 @@ class App extends Component {
             <InnerContainer>
               <PublicRoute exact={true} authed={this.props.isAuthed} path="/login"
                 component={Authenticate} />
-              <Route exact={true} path="/logout" component={LogoutContainer} />
+              <PrivateRoute
+                exact={true}
+                authed={this.props.isAuthed}
+                path="/logout"
+                component={LogoutContainer}/>
               <PrivateRoute
                 exact={true}
                 authed={this.props.isAuthed}

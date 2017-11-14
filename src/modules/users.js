@@ -44,16 +44,8 @@ export const fetchingUserSuccess = (uid, user, timestamp) => {
 export const fetchAndHandleAuthedUser = () => async dispatch => {
   dispatch(fetchingUser())
   try {
-    // https://firebase.google.com/docs/auth/web/github-auth
-    const { credential, user } = await auth()
-
+    const { user } = await auth()
     const userInfo = formatUserInfo(user.providerData[0])
-
-    // TODO fix - { user } is already assigned
-    // const userSuccess = dispatch(fetchingUserSuccess(user.uid, userInfo, Date.now()))
-    // saveUser(userSuccess.user)
-    // dispatch(authUser(userSuccess.user.uid))
-
     await dispatch(fetchingUserSuccess(user.uid, userInfo, Date.now()))
     saveUser(user)
     dispatch(authUser(user.uid))
@@ -71,7 +63,7 @@ export const logoutAndUnauth = () => dispatch => {
   dispatch(unauthUser())
 }
 
-export const removeFetching = () => ({
+export const removeFetchingUser = () => ({
   type: REMOVE_FETCHING_USER,
 })
 

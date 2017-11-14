@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutAndUnauth } from 'modules/users'
-import Logout from 'components/Logout'
+import { Redirect } from 'react-router-dom'
 
 class LogoutContainer extends Component {
   static propTypes = {
@@ -13,7 +13,7 @@ class LogoutContainer extends Component {
     this.props.dispatch(logoutAndUnauth())
   }
   render () {
-    return <Logout />
+    return <Redirect to={{ pathname: '/' }} />
   }
 }
 
