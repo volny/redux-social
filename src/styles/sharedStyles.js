@@ -28,3 +28,14 @@ export const ErrorMessage = styled.p`
   color: #c0392b;
   font-weight: 600;
 `
+
+export const ActionButton = styled.button`
+  text-align: center;
+  border-radius: 2px;
+  padding: 10px 15px;
+  border-style: none;
+  font-size: 16px;
+  cursor: pointer;
+  align-self: center;
+  margin: 0 10px;
+`
