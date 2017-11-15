@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import Headroom from 'react-headroom'
 import styled from 'styled-components'
 
+import ModalContainer from 'containers/ModalContainer'
+
 const NavBar = styled(Headroom)`
   min-height: 80px;
   background: #e5e5e5;
@@ -52,7 +54,7 @@ const ActionLinks = ({ isAuthed }) =>
   isAuthed === true ? (
     <NavList>
       <NavListItem>
-        <NavLink to="/">{'New Post'}</NavLink>
+        <ModalContainer />
       </NavListItem>
       <NavListItem>
         <NavLink to="/logout">{'Logout'}</NavLink>

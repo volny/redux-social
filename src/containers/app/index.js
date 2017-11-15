@@ -10,7 +10,7 @@ import Navigation from 'components/Navigation'
 import Authenticate from 'containers/AuthenticateContainer'
 import FeedContainer from 'containers/FeedContainer'
 import LogoutContainer from 'containers/LogoutContainer'
-import * as userActionsCreators from 'modules/users'
+import * as userActions from 'modules/users'
 import { formatUserInfo } from 'helpers/utils'
 import { firebaseAuth } from 'config/constants'
 import { PublicRoute, PrivateRoute } from 'routeTypes.js'
@@ -82,6 +82,6 @@ class App extends Component {
 export default withRouter(
   connect(
     ({ users: { isAuthed, isFetching } }) => ({ isAuthed, isFetching }),
-    dispatch => bindActionCreators(userActionsCreators, dispatch),
+    dispatch => bindActionCreators(userActions, dispatch),
   )(App),
 )
