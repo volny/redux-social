@@ -37,5 +37,4 @@ export const ActionButton = styled.button`
   font-size: 16px;
   cursor: pointer;
   align-self: center;
-  margin: 0 10px;
 `

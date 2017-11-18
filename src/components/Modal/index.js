@@ -14,14 +14,6 @@ const PostButton = styled(ActionButton)`
   }
 `
 
-const SubmitButton = styled(ActionButton)`
-  background: #59abe3;
-  color: #ffffff;
-  &:hover {
-    background: #1877e6;
-  }
-`
-
 const modalStyles = {
   content: {
     width: 350,
@@ -50,10 +42,31 @@ const ModalTop = styled.div`
   color: #1877e6;
 `
 
+const ModalHeading = styled.span`
+  font-size: 18px;
+`
+
 const ModalTextareaContainer = styled.div`
   display: flex;
   height: 110px;
-  margin: 10px;
+  margin: 10px 10px 4px 10px;
+`
+
+const ModalButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 50px;
+`
+
+const SubmitButton = styled(ActionButton)`
+  background: #59abe3;
+  color: #ffffff;
+  &:hover {
+    background: #1877e6;
+  }
+  &:disabled {
+    background: #e4f1fe;
+  }
 `
 
 const NewPostInput = styled.textarea`
@@ -79,7 +92,7 @@ const Modal = ({ postText, isOpen, user, isSubmitDisabled, openModal, closeModal
     <div>
       <ReactModal style={modalStyles} isOpen={isOpen} onRequestClose={closeModal}>
         <ModalTop>
-          <span>{'Compose new Post'}</span>
+          <ModalHeading>{'Compose new Post'}</ModalHeading>
           <ModalCloseButton onClick={closeModal} style={{ cursor: 'pointer' }}>
             {'×'}
           </ModalCloseButton>
@@ -92,9 +105,11 @@ const Modal = ({ postText, isOpen, user, isSubmitDisabled, openModal, closeModal
             type="text"
             placeholder="What's happening"/>
         </ModalTextareaContainer>
-        <SubmitButton disabled={isSubmitDisabled} onClick={submitPost}>
-          {'Post'}
-        </SubmitButton>
+        <ModalButtonContainer>
+          <SubmitButton disabled={isSubmitDisabled} onClick={submitPost}>
+            {'Post'}
+          </SubmitButton>
+        </ModalButtonContainer>
       </ReactModal>
       <PostButton onClick={openModal}>{'New Post'}</PostButton>
     </div>
