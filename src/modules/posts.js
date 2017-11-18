@@ -35,10 +35,10 @@ const addPost = post => ({
 export const postFanout = post => async (dispatch, getState) => {
   const uid = getState().users.authedID
   try {
-    const { postID } = await savePost()
-    dispatch(addPost(post))
+    const postWithID = await savePost(post)
+    dispatch(addPost(postWithID))
     dispatch(closeModal())
-    dispatch(addSingleUsersPost(uid, postID))
+    dispatch(addSingleUsersPost(uid, postWithID.postID))
   } catch (error) {
     console.warn(error)
   }

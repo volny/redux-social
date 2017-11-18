@@ -3,3 +3,11 @@ export const formatUserInfo = ({ displayName, photoURL, uid }) => ({
   avatar: photoURL,
   uid,
 })
+
+export const formatPost = (text, { name, avatar, uid }) => ({
+  text,
+  name,
+  avatar,
+  uid,
+  timestamp: Date.now(),
+})

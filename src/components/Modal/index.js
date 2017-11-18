@@ -4,6 +4,7 @@ import { default as ReactModal } from 'react-modal'
 import styled from 'styled-components'
 
 import { ActionButton } from 'styles/sharedStyles'
+import { formatPost } from 'helpers/utils'
 
 const PostButton = styled(ActionButton)`
   background: #59abe3;
@@ -83,10 +84,18 @@ const ModalCloseButton = styled.span`
   font-size: 20px;
 `
 
-const Modal = ({ postText, isOpen, user, isSubmitDisabled, openModal, closeModal, updatePostText }) => {
+const Modal = ({
+  postText,
+  isOpen,
+  user,
+  isSubmitDisabled,
+  openModal,
+  closeModal,
+  updatePostText,
+  postFanout,
+}) => {
   const submitPost = () => {
-    console.log('Post', postText)
-    console.log('User', user)
+    postFanout(formatPost(postText, user))
   }
   return (
     <div>
@@ -124,6 +133,7 @@ Modal.propTypes = {
   openModal: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   updatePostText: PropTypes.func.isRequired,
+  postFanout: PropTypes.func.isRequired,
 }
 
 export default Modal
