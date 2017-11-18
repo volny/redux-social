@@ -4,11 +4,17 @@ import { routerReducer as routing } from 'react-router-redux'
 
 import users from 'modules/users'
 import modal from 'modules/modal'
+import posts from 'modules/posts'
+import usersPosts from 'modules/usersPosts'
+import feed from 'modules/feed'
 
 const rootReducer = combineReducers({
   routing,
   users,
   modal,
+  posts,
+  usersPosts,
+  feed,
 })
 
 export default rootReducer
