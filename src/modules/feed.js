@@ -1,3 +1,7 @@
+import { addListener } from 'modules/listeners'
+import { addMultiplePosts } from 'modules/posts'
+import { listenToFeed } from 'helpers/api'
+
 const SETTING_FEED_LISTENER = 'SETTING_FEED_LISTENER'
 const SETTING_FEED_LISTENER_ERROR = 'SETTING_FEED_LISTENER_ERROR'
 const SETTING_FEED_LISTENER_SUCCESS = 'SETTING_FEED_LISTENER_SUCCESS'
@@ -8,10 +12,13 @@ const settingFeedListener = () => ({
   type: SETTING_FEED_LISTENER,
 })
 
-const settingFeedListenerError = error => ({
-  type: SETTING_FEED_LISTENER_ERROR,
-  error: 'Error fetching feeds',
-})
+const settingFeedListenerError = error => {
+  console.warn(error)
+  return {
+    type: SETTING_FEED_LISTENER_ERROR,
+    error: 'Error fetching feeds',
+  }
+}
 
 const settingFeedListenerSuccess = postIDs => ({
   type: SETTING_FEED_LISTENER_SUCCESS,
@@ -26,6 +33,26 @@ const addNewPostIDToFeed = postID => ({
 export const resetNewPostsAvailable = () => ({
   type: RESET_NEW_POSTS_AVAILABLE,
 })
+
+export const setAndHandleFeedListener = () => (dispatch, getState) => {
+  let initialFetch = true
+  if (getState().listeners.feed === feed) {
+    return
+  }
+  dispatch(addListener('feed'))
+  dispatch(settingFeedListener())
+
+  listenToFeed(
+    ({ feed, sortedIDs }) => {
+      dispatch(addMultiplePosts(feed))
+      initialFetch === true
+        ? dispatch(settingFeedListenerSuccess(sortedIDs))
+        : dispatch(addNewPostIDToFeed(sortedIDs[0]))
+      initialFetch = false
+    },
+    error => dispatch(settingFeedListenerError(error)),
+  )
+}
 
 const initialState = {
   newPostsAvailable: false,

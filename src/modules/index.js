@@ -7,6 +7,7 @@ import modal from 'modules/modal'
 import posts from 'modules/posts'
 import usersPosts from 'modules/usersPosts'
 import feed from 'modules/feed'
+import listeners from 'modules/listeners'
 
 const rootReducer = combineReducers({
   routing,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   posts,
   usersPosts,
   feed,
+  listeners,
 })
 
 export default rootReducer

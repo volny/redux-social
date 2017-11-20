@@ -13,10 +13,13 @@ const fetchingPost = () => ({
   type: FETCHING_POST,
 })
 
-const fetchingPostError = error => ({
-  type: FETCHING_POST_ERROR,
-  error: 'Error fetching Post',
-})
+const fetchingPostError = error => {
+  console.warn(error)
+  return {
+    type: FETCHING_POST_ERROR,
+    error: 'Error fetching Post',
+  }
+}
 
 const fetchingPostSuccess = post => ({
   type: FETCHING_POST_SUCCESS,
@@ -44,7 +47,7 @@ export const postFanout = post => async (dispatch, getState) => {
   }
 }
 
-const addMultiplePosts = posts => ({
+export const addMultiplePosts = posts => ({
   type: ADD_MULTIPLE_POSTS,
   posts,
 })

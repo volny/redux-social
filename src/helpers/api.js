@@ -18,3 +18,15 @@ export const savePost = post => {
     postID,
   }))
 }
+
+export const listenToFeed = (cb, errorCB) => {
+  ref.child('posts').on(
+    'value',
+    snapshot => {
+      const feed = snapshot.val() || {}
+      const sortedIDs = Object.keys(feed).sort((a, b) => feed[b].timestamp - feed[a].timestamp)
+      cb({ feed, sortedIDs })
+    },
+    errorCB,
+  )
+}
