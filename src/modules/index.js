@@ -8,6 +8,8 @@ import posts from 'modules/posts'
 import usersPosts from 'modules/usersPosts'
 import feed from 'modules/feed'
 import listeners from 'modules/listeners'
+import likeCount from 'modules/likeCount'
+import usersLikes from 'modules/usersLikes'
 
 const rootReducer = combineReducers({
   routing,
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
   usersPosts,
   feed,
   listeners,
+  likeCount,
+  usersLikes,
 })
 
 export default rootReducer

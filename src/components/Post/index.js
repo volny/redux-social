@@ -1,7 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Post = ({}) => <div />
+const Post = props => {
+  console.log(props)
+  return <p>{JSON.stringify(props.post)}</p>
+}
 
 Post.propTypes = {}
 

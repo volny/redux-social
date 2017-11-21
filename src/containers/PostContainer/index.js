@@ -6,6 +6,11 @@ import { withRouter } from 'react-router'
 import Post from 'components/Post'
 
 class PostContainer extends Component {
+  static defaultProps = {
+    hideReplyBtn: false,
+    hideLikeCount: true,
+  }
+
   static propTypes = {
     postID: PropTypes.string.isRequired,
     post: PropTypes.object.isRequired,
@@ -20,11 +25,6 @@ class PostContainer extends Component {
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
   }
-  static defaultProps = {
-    hideReplyBtn: false,
-    hideLikeCoutn: true,
-  }
-
   goToProfile = event => {
     event.stopPropagation()
     this.props.history.push(`/${this.props.post.uid}`)
@@ -36,17 +36,19 @@ class PostContainer extends Component {
   }
 
   render () {
-    return <Post />
+    return (
+      <Post
+        goToProfile={this.goToProfile}
+        onClick={this.props.location.pathname === '/feed' ? this.handleClick : null}
+        {...this.props}/>
+    )
   }
 }
 
-const mapStateToProps = (
-  { posts, likeCount, usersLikes },
-  { props: { postID, hideLikeCount, hideReplyBtn } },
-) => ({
+const mapStateToProps = ({ posts, likeCount, usersLikes }, { postID, hideLikeCount, hideReplyBtn }) => ({
   post: posts[postID],
-  hideLikeCount,
-  hideReplyBtn,
+  hideLikeCount: hideLikeCount,
+  hideReplyBtn: hideReplyBtn,
   isLiked: usersLikes[postID] === true,
   numberOfLikes: likeCount[postID],
 })
