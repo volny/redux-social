@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as feedActions from 'modules/feed'
+import { withRouter } from 'react-router'
 
 import Feed from 'components/Feed'
 
@@ -40,4 +41,4 @@ const mapStateToProps = ({ feed: { newPostsAvailable, error, isFetching, postIDs
 
 const mapDispatchToProps = dispatch => bindActionCreators(feedActions, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(FeedContainer)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FeedContainer))

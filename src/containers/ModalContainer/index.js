@@ -1,5 +1,6 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
 import Modal from 'components/Modal'
 import * as modalActions from 'modules/modal'
@@ -17,4 +18,4 @@ const mapStateToProps = ({ modal, users }) => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({ ...modalActions, ...postsActions }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modal)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Modal))

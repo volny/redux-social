@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
 import Post from 'components/Post'
 
@@ -14,11 +15,26 @@ class PostContainer extends Component {
     hideReplyBtn: PropTypes.bool.isRequired,
     handleDeleteLike: PropTypes.func.isRequired,
     addAndHandleLike: PropTypes.func.isRequired,
+    // withRouter
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   }
   static defaultProps = {
     hideReplyBtn: false,
     hideLikeCoutn: true,
   }
+
+  goToProfile = event => {
+    event.stopPropagation()
+    this.props.history.push(`/${this.props.post.uid}`)
+  }
+
+  handleClick = event => {
+    event.stopPropagation()
+    this.props.history.push(`/postDetail/${this.props.post.postID}`)
+  }
+
   render () {
     return <Post />
   }
@@ -35,4 +51,4 @@ const mapStateToProps = (
   numberOfLikes: likeCount[postID],
 })
 
-export default connect(mapStateToProps)(PostContainer)
+export default withRouter(connect(mapStateToProps)(PostContainer))

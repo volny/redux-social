@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutAndUnauth } from 'modules/users'
 import { Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router'
 
 class LogoutContainer extends Component {
   static propTypes = {
@@ -17,4 +18,4 @@ class LogoutContainer extends Component {
   }
 }
 
-export default connect()(LogoutContainer)
+export default withRouter(connect()(LogoutContainer))
