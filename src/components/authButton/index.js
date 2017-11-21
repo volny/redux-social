@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
+import { ActionButton } from 'styles/sharedStyles'
+
 const Button = styled.button`
   color: #ffffff;
   background: #aaaaaa;
@@ -18,8 +20,16 @@ const Button = styled.button`
   }
 `
 
+const StyledButton = styled(ActionButton)`
+  margin: 0.3rem 0;
+  width: 20rem;
+  padding: 1rem;
+`
+
 const AuthButton = ({ provider, isFetching, onAuth }) => (
-  <Button onClick={onAuth}>{isFetching === true ? 'Loading' : `Login with ${provider.toUpperCase()}`}</Button>
+  <StyledButton onClick={onAuth}>
+    {isFetching === true ? 'Loading' : `Login with ${provider.toUpperCase()}`}
+  </StyledButton>
 )
 
 AuthButton.propTypes = {

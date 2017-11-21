@@ -7,7 +7,6 @@ import { ActionButton } from 'styles/sharedStyles'
 import { formatPost } from 'helpers/utils'
 
 const PostButton = styled(ActionButton)`
-  background: #59abe3;
   color: #ffffff;
   font-size: 20px;
   &:hover {
@@ -60,7 +59,6 @@ const ModalButtonContainer = styled.div`
 `
 
 const SubmitButton = styled(ActionButton)`
-  background: #59abe3;
   color: #ffffff;
   &:hover {
     background: #1877e6;

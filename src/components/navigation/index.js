@@ -5,10 +5,10 @@ import Headroom from 'react-headroom'
 import styled from 'styled-components'
 
 import ModalContainer from 'containers/ModalContainer'
+import { ActionButton } from 'styles/sharedStyles'
 
 const NavBar = styled(Headroom)`
-  min-height: 80px;
-  background: #e5e5e5;
+  min-height: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,12 +22,18 @@ const NavContainer = styled.div`
   max-width: 800px;
 `
 
-const NavLink = styled(Link)`
-  color: #222222;
-  font-size: 20px;
-  text-decoration: none;
+const NavListItem = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  padding: 0 0.5rem;
+`
+
+const LogoutButton = styled(ActionButton)`
+  background: #aaaaaa;
   &:hover {
-    color: #a1b56c;
+    background: #888888;
   }
 `
 
@@ -36,19 +42,22 @@ const NavList = styled.ul`
   flex-direction: row;
 `
 
-const NavListItem = styled.li`
-  list-style-type: none;
-  padding: 0 0.5rem;
+const TitleLogo = styled.img`
+  width: 60px;
+  height: 60px;
 `
 
-const NavLinks = ({ isAuthed }) =>
-  isAuthed === true ? (
-    <NavList>
-      <NavListItem>
-        <NavLink to="/">{'Home'}</NavLink>
-      </NavListItem>
-    </NavList>
-  ) : null
+const NavLinks = () => (
+  <NavList>
+    <NavListItem>
+      <Link to="/">
+        <TitleLogo
+          src="http://fowley.net/wp-content/uploads/2016/04/logo-tweeten-300x300.png"
+          alt="Twitter"/>{' '}
+      </Link>
+    </NavListItem>
+  </NavList>
+)
 
 const ActionLinks = ({ isAuthed }) =>
   isAuthed === true ? (
@@ -57,13 +66,17 @@ const ActionLinks = ({ isAuthed }) =>
         <ModalContainer />
       </NavListItem>
       <NavListItem>
-        <NavLink to="/logout">{'Logout'}</NavLink>
+        <Link to="/logout">
+          <LogoutButton>{'Logout'}</LogoutButton>
+        </Link>
       </NavListItem>
     </NavList>
   ) : (
     <NavList>
       <NavListItem>
-        <NavLink to="/login">{'Login'}</NavLink>
+        <Link to="/login">
+          <ActionButton>{'Login'}</ActionButton>
+        </Link>
       </NavListItem>
     </NavList>
   )
@@ -71,7 +84,7 @@ const ActionLinks = ({ isAuthed }) =>
 const Navigation = ({ isAuthed }) => (
   <NavBar>
     <NavContainer>
-      <NavLinks isAuthed={isAuthed} />
+      <NavLinks />
       <ActionLinks isAuthed={isAuthed} />
     </NavContainer>
   </NavBar>

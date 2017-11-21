@@ -30,11 +30,16 @@ export const ErrorMessage = styled.p`
 `
 
 export const ActionButton = styled.button`
+  background: #0592ff;
+  color: #ffffff;
+  font-size: 20px;
   text-align: center;
   border-radius: 2px;
   padding: 10px 15px;
   border-style: none;
-  font-size: 16px;
   cursor: pointer;
   align-self: center;
+  &:hover {
+    background: #1877e6;
+  }
 `
