@@ -13,6 +13,7 @@ class FeedContainer extends Component {
     isFetching: PropTypes.bool.isRequired,
     setAndHandleFeedListener: PropTypes.func.isRequired,
     resetNewPostsAvailable: PropTypes.func.isRequired,
+    postIDs: PropTypes.array.isRequired,
   }
   componentDidMount = () => {
     this.props.setAndHandleFeedListener()
@@ -24,15 +25,17 @@ class FeedContainer extends Component {
         newPostsAvailable={this.props.newPostsAvailable}
         isFetching={this.props.isFetching}
         error={this.props.error}
-        resetNewPostsAvailable={this.props.resetNewPostsAvailable}/>
+        resetNewPostsAvailable={this.props.resetNewPostsAvailable}
+        postIDs={this.props.postIDs}/>
     )
   }
 }
 
-const mapStateToProps = ({ feed: { newPostsAvailable, error, isFetching } }) => ({
+const mapStateToProps = ({ feed: { newPostsAvailable, error, isFetching, postIDs } }) => ({
   newPostsAvailable,
   error,
   isFetching,
+  postIDs,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators(feedActions, dispatch)
