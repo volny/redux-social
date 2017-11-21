@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { ContentContainer, PageTitle, PageSubTitle, ErrorMessage } from 'styles/sharedStyles'
+import PostContainer from 'containers/PostContainer'
 
 const NewPostContainer = styled.div`
   background: #4a90e2;
@@ -28,12 +29,8 @@ const Feed = ({ isFetching, resetNewPostsAvailable, newPostsAvailable, postIDs, 
     ) : (
       <div>
         {newPostsAvailable ? <NewPostsAvailable handleClick={resetNewPostsAvailable} /> : null}
-        {postIDs.length === 0 ? (
-          <PageSubTitle>
-            {'This is unfortunate.'} <br /> {'It appears there are no posts yet 😞'}
-          </PageSubTitle>
-        ) : null}
-        {postIDs.map(id => <p key={id}>ID: {id}</p>)}
+        {postIDs.length === 0 ? <PageSubTitle>{'No posts yet 😞'}</PageSubTitle> : null}
+        {postIDs.map(id => <PostContainer key={id} postID={id} />)}
         {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       </div>
     )}
