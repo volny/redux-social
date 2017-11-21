@@ -30,3 +30,18 @@ export const listenToFeed = (cb, errorCB) => {
     errorCB,
   )
 }
+
+export const fetchUsersLikes = async uid => {
+  const snapshot = await ref.child(`usersLikes/${uid}`).once('value')
+  return snapshot.val() || {}
+}
+
+export const saveToUsersLikes = (uid, postID) => ref.child(`usersLikes/${uid}/${postID}`).set(true)
+
+export const deleteFromUsersLikes = (uid, postID) => ref.child(`usersLikes/${uid}/${postID}`).set(null)
+
+export const incrementNumberOfLikes = postID =>
+  ref.child(`likeCount/${postID}`).transaction((currentValue = 0) => currentValue + 1)
+
+export const decrementNumberOfLikes = postID =>
+  ref.child(`likeCount/${postID}`).transaction((currentValue = 0) => currentValue - 1)

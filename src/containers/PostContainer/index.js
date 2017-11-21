@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 
 import Post from 'components/Post'
+import * as usersLikesActions from 'modules/usersLikes'
 
 class PostContainer extends Component {
   static defaultProps = {
@@ -53,4 +55,6 @@ const mapStateToProps = ({ posts, likeCount, usersLikes }, { postID, hideLikeCou
   numberOfLikes: likeCount[postID],
 })
 
-export default withRouter(connect(mapStateToProps)(PostContainer))
+const mapDispatchToProps = dispatch => bindActionCreators(usersLikesActions, dispatch)
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostContainer))

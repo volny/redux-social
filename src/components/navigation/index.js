@@ -90,7 +90,7 @@ const Navigation = ({ isAuthed }) => (
   </NavBar>
 )
 
-Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
+Navigation.propTypes = ActionLinks.propTypes = {
   isAuthed: PropTypes.bool.isRequired,
 }
 

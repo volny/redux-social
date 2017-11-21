@@ -1,3 +1,11 @@
+import {
+  fetchUsersLikes,
+  saveToUsersLikes,
+  deleteFromUsersLikes,
+  incrementNumberOfLikes,
+  decrementNumberOfLikes,
+} from 'helpers/api'
+
 export const ADD_LIKE = 'ADD_LIKE'
 export const REMOVE_LIKE = 'REMOVE_LIKE'
 const FETCHING_LIKES = 'FETCHING_LIKES'
@@ -31,6 +39,29 @@ const fetchingLikesSuccess = likes => ({
   likes,
 })
 
+export const addAndHandleLike = (postID, event) => {
+  event.stopPropagation()
+  return (dispatch, getState) => {
+    dispatch(addLike(postID))
+    const uid = getState().users.authedID
+    Promise.all([saveToUsersLikes(uid, postID), incrementNumberOfLikes(postID)]).catch(error => {
+      console.warn(error)
+      dispatch(removeLike(postID))
+    })
+  }
+}
+
+export const handleDeleteLike = (postID, event) => {
+  event.stopPropagation()
+  return (dispatch, getState) => {
+    dispatch(removeLike(postID))
+    const uid = getState().users.authedID
+    Promise.all([deleteFromUsersLikes(uid, postID), decrementNumberOfLikes(postID)]).catch(error => {
+      console.warn(error)
+      dispatch(addLike(postID))
+    })
+  }
+}
 const initialState = {
   isFetching: false,
   error: '',
