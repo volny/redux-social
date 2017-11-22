@@ -6,6 +6,7 @@ import styled from 'styled-components'
 
 import ModalContainer from 'containers/ModalContainer'
 import { ActionButton } from 'styles/sharedStyles'
+import Logo from 'logo.png'
 
 const NavBar = styled(Headroom)`
   min-height: 120px;
@@ -52,7 +53,7 @@ const NavLinks = ({ isAuthed }) =>
     <NavList>
       <NavListItem>
         <Link to="/">
-          <TitleLogo src="http://fowley.net/wp-content/uploads/2016/04/logo-tweeten-300x300.png" alt="TWTR" />{' '}
+          <TitleLogo src={Logo} alt="TWTR" />{' '}
         </Link>
       </NavListItem>
     </NavList>
