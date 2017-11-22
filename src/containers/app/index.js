@@ -9,6 +9,8 @@ import Navigation from 'components/Navigation'
 import Authenticate from 'containers/AuthenticateContainer'
 import FeedContainer from 'containers/FeedContainer'
 import LogoutContainer from 'containers/LogoutContainer'
+import PostDetailsContainer from 'containers/PostDetailsContainer'
+import UserContainer from 'containers/UserContainer'
 import * as userActions from 'modules/users'
 import * as usersLikesActions from 'modules/usersLikes'
 import { formatUserInfo } from 'helpers/utils'
@@ -58,19 +60,29 @@ class App extends Component {
         <Navigation isAuthed={this.props.isAuthed} />
         <main>
           <MainContainer>
+            <PublicRoute exact={true} authed={this.props.isAuthed} path="/"
+              component={Authenticate} />
             <InnerContainer>
-              <PrivateRoute
-                exact={true}
-                authed={this.props.isAuthed}
-                path="/logout"
-                component={LogoutContainer}/>
               <PrivateRoute
                 exact={true}
                 authed={this.props.isAuthed}
                 path="/feed"
                 component={FeedContainer}/>
-              <PublicRoute exact={true} authed={this.props.isAuthed} path="/"
-                component={Authenticate} />
+              <PrivateRoute
+                exact={true}
+                authed={this.props.isAuthed}
+                path="/post/:postID"
+                component={PostDetailsContainer}/>
+              <PrivateRoute
+                exact={true}
+                authed={this.props.isAuthed}
+                path="/:uid"
+                component={UserContainer}/>
+              <PrivateRoute
+                exact={true}
+                authed={this.props.isAuthed}
+                path="/logout"
+                component={LogoutContainer}/>
             </InnerContainer>
           </MainContainer>
         </main>

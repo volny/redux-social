@@ -34,7 +34,7 @@ class PostContainer extends Component {
 
   handleClick = event => {
     event.stopPropagation()
-    this.props.history.push(`/postDetail/${this.props.post.postID}`)
+    this.props.history.push(`/post/${this.props.post.postID}`)
   }
 
   render () {
