@@ -1,11 +1,152 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { withRouter } from 'react-router'
+import styled, { css } from 'styled-components'
+import Reply from 'react-icons/lib/fa/mail-reply'
+import Star from 'react-icons/lib/fa/star'
 
-const Post = props => {
-  console.log(props)
-  return <p>{JSON.stringify(props.post)}</p>
+import { formatTimestamp } from 'helpers/utils'
+
+export const clickable = css`
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
+`
+
+const PostContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-width: 400px;
+  margin: 2rem;
+  color: #555555;
+`
+
+const Avatar = styled.img`
+  width: 75px;
+  border-radius: 3px;
+  margin-right: 15px;
+  border-top: 5px;
+`
+
+const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: 1;
+`
+
+const PostHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 18px;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: bold;
+`
+
+const Author = styled.div`
+  ${clickable};
+`
+
+const Text = styled.div`
+  padding: 8px 0;
+  font-size: 20px;
+  line-height: 25px;
+`
+
+const LikeReplyContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`
+
+const ActionContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 15px;
+  font-size: 18px;
+`
+
+const ReplyIcon = styled(Reply)`
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
+  ${clickable};
+`
+
+const StarIcon = styled(Star)`
+  color: ${props => (props.isLiked ? '#4a90e2' : '#555555')};
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
+  ${clickable};
+`
+
+const Date = styled.div``
+
+const Post = ({
+  location,
+  onClick,
+  post,
+  goToProfile,
+  isLiked,
+  handleDeleteLike,
+  addAndHandleLike,
+  hideLikeCount,
+  numberOfLikes,
+}) => (
+  <PostContainer style={{ cursor: location.pathname === '/feed' ? 'pointer' : 'default' }} onClick={onClick}>
+    <Avatar src={post.avatar} alt={`Avatar for ${post.name}`} />
+    <InfoContainer>
+      <PostHeader>
+        <Author onClick={goToProfile}>{post.name}</Author>
+        <Date>{formatTimestamp(post.timestamp)}</Date>
+      </PostHeader>
+      <Text>{post.text}</Text>
+      <LikeReplyContainer>
+        {location.pathname === '/feed' ? <ReplyIcon /> : null}
+
+        <ActionContainer>
+          <StarIcon
+            isLiked={isLiked}
+            onClick={event =>
+              isLiked === 'true' ? handleDeleteLike(post.postID, event) : addAndHandleLike(post.postID, event)}/>
+          {hideLikeCount === true ? null : <div>{numberOfLikes}</div>}
+        </ActionContainer>
+      </LikeReplyContainer>
+    </InfoContainer>
+  </PostContainer>
+)
+
+Post.propTypes = {
+  post: PropTypes.shape({
+    avatar: PropTypes.string.isRequired,
+    postID: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    timestamp: PropTypes.number.isRequired,
+    uid: PropTypes.string.isRequired,
+  }),
+  onClick: PropTypes.func,
+  isLiked: PropTypes.bool.isRequired,
+  addAndHandleLike: PropTypes.func.isRequired,
+  handleDeleteLike: PropTypes.func.isRequired,
+  numberOfLikes: PropTypes.number,
+  hideReplyBtn: PropTypes.bool.isRequired,
+  hideLikeCount: PropTypes.bool.isRequired,
+  goToProfile: PropTypes.func.isRequired,
+  // withRouter
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
-Post.propTypes = {}
-
-export default Post
+export default withRouter(Post)
