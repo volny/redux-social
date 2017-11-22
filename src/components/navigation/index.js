@@ -74,7 +74,7 @@ const ActionLinks = ({ isAuthed }) =>
   ) : null
 
 const Navigation = ({ isAuthed }) => (
-  <NavBar>
+  <NavBar disable={true}>
     <NavContainer>
       <NavLinks isAuthed={isAuthed} />
       <ActionLinks isAuthed={isAuthed} />

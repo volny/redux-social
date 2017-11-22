@@ -16,13 +16,17 @@ export const clickable = css`
 `
 
 const PostContainer = styled.div`
+  background: #fcfcfc;
+  padding: 1rem;
+  border-radius: 2px;
+  color: transparent;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
   min-width: 80%;
   max-width: 500px;
-  margin: 2rem;
+  margin: 1rem;
   color: #555555;
 `
 
@@ -83,7 +87,6 @@ const ReplyIcon = styled(Reply)`
 `
 
 const StarIcon = styled(Star)`
-  color: ${props => (props.isLiked ? '#4a90e2' : '#555555')};
   height: 25px;
   width: 25px;
   margin-right: 5px;
@@ -116,7 +119,7 @@ const Post = ({
 
         <ActionContainer>
           <StarIcon
-            isLiked={isLiked}
+            style={{ color: isLiked === true ? '#4a90e2' : '#555555' }}
             onClick={event =>
               isLiked === true ? handleDeleteLike(post.postID, event) : addAndHandleLike(post.postID, event)}/>
           {hideLikeCount === true ? null : <div>{numberOfLikes}</div>}
