@@ -20,7 +20,8 @@ const PostContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  max-width: 400px;
+  min-width: 80%;
+  max-width: 500px;
   margin: 2rem;
   color: #555555;
 `

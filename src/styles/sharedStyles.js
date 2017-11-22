@@ -17,7 +17,7 @@ export const PageTitle = styled.h1`
 `
 
 export const PageSubTitle = styled.h2`
-  color: #7cafc2;
+  color: #0592ff;
   font-size: 2rem;
   font-weight: 100;
   margin: 0;
