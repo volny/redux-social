@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import Home from 'components/Home'
 import Navigation from 'components/Navigation'
 import Authenticate from 'containers/AuthenticateContainer'
 import FeedContainer from 'containers/FeedContainer'
@@ -60,8 +59,6 @@ class App extends Component {
         <main>
           <MainContainer>
             <InnerContainer>
-              <PublicRoute exact={true} authed={this.props.isAuthed} path="/login"
-                component={Authenticate} />
               <PrivateRoute
                 exact={true}
                 authed={this.props.isAuthed}
@@ -73,7 +70,7 @@ class App extends Component {
                 path="/feed"
                 component={FeedContainer}/>
               <PublicRoute exact={true} authed={this.props.isAuthed} path="/"
-                component={Home} />
+                component={Authenticate} />
             </InnerContainer>
           </MainContainer>
         </main>

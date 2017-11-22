@@ -12,7 +12,7 @@ const fetchingUsersPostsError = error => {
   console.warn(error)
   return {
     type: FETCHING_USERS_POSTS_ERROR,
-    error: 'Error fetching users post ids',
+    error: 'Error fetching users post ids 😞 ',
   }
 }
 

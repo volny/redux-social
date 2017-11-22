@@ -30,7 +30,7 @@ const fetchLikesError = error => {
   console.warn(error)
   return {
     type: FETCHING_LIKES_ERROR,
-    error: 'Error fetching likes',
+    error: 'Error fetching likes 😞 ',
   }
 }
 

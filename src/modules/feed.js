@@ -16,7 +16,7 @@ const settingFeedListenerError = error => {
   console.warn(error)
   return {
     type: SETTING_FEED_LISTENER_ERROR,
-    error: 'Error fetching feeds',
+    error: 'Error fetching feeds 😞 ',
   }
 }
 

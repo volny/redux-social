@@ -28,7 +28,7 @@ const fetchingUserFailure = error => {
   console.warn(error)
   return {
     type: FETCHING_USER_FAILURE,
-    error: 'Error fetching user.',
+    error: 'Error fetching user 😞 ',
   }
 }
 

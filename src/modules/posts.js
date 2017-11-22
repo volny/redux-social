@@ -17,7 +17,7 @@ const fetchingPostError = error => {
   console.warn(error)
   return {
     type: FETCHING_POST_ERROR,
-    error: 'Error fetching Post',
+    error: 'Error fetching Post 😞 ',
   }
 }
 

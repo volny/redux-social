@@ -47,17 +47,16 @@ const TitleLogo = styled.img`
   height: 60px;
 `
 
-const NavLinks = () => (
-  <NavList>
-    <NavListItem>
-      <Link to="/">
-        <TitleLogo
-          src="http://fowley.net/wp-content/uploads/2016/04/logo-tweeten-300x300.png"
-          alt="Twitter"/>{' '}
-      </Link>
-    </NavListItem>
-  </NavList>
-)
+const NavLinks = ({ isAuthed }) =>
+  isAuthed === true ? (
+    <NavList>
+      <NavListItem>
+        <Link to="/">
+          <TitleLogo src="http://fowley.net/wp-content/uploads/2016/04/logo-tweeten-300x300.png" alt="TWTR" />{' '}
+        </Link>
+      </NavListItem>
+    </NavList>
+  ) : null
 
 const ActionLinks = ({ isAuthed }) =>
   isAuthed === true ? (
@@ -71,26 +70,18 @@ const ActionLinks = ({ isAuthed }) =>
         </Link>
       </NavListItem>
     </NavList>
-  ) : (
-    <NavList>
-      <NavListItem>
-        <Link to="/login">
-          <ActionButton>{'Login'}</ActionButton>
-        </Link>
-      </NavListItem>
-    </NavList>
-  )
+  ) : null
 
 const Navigation = ({ isAuthed }) => (
   <NavBar>
     <NavContainer>
-      <NavLinks />
+      <NavLinks isAuthed={isAuthed} />
       <ActionLinks isAuthed={isAuthed} />
     </NavContainer>
   </NavBar>
 )
 
-Navigation.propTypes = ActionLinks.propTypes = {
+Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
   isAuthed: PropTypes.bool.isRequired,
 }
 

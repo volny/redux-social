@@ -8,18 +8,9 @@ export const ContentContainer = styled.div`
   margin: 0;
   padding: 1rem 0;
 `
-export const PageTitle = styled.h1`
-  color: #ab4642;
-  font-size: 5rem;
-  font-weight: 100;
-  margin: 0;
-  padding: 0.25rem 0;
-`
-
 export const PageSubTitle = styled.h2`
   color: #0592ff;
   font-size: 2rem;
-  font-weight: 100;
   margin: 0;
   padding: 0;
 `
@@ -27,6 +18,7 @@ export const PageSubTitle = styled.h2`
 export const ErrorMessage = styled.p`
   color: #c0392b;
   font-weight: 600;
+  font-size: 1.5rem;
 `
 
 export const ActionButton = styled.button`
