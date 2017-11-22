@@ -62,6 +62,18 @@ export const handleDeleteLike = (postID, event) => {
     })
   }
 }
+
+export const setUsersLikes = () => async (dispatch, getState) => {
+  const uid = getState().users.authedID
+  dispatch(fetchingLikes())
+  try {
+    const likes = await fetchUsersLikes(uid)
+    dispatch(fetchingLikesSuccess(likes))
+  } catch (error) {
+    dispatch(fetchLikesError(error))
+  }
+}
+
 const initialState = {
   isFetching: false,
   error: '',

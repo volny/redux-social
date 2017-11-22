@@ -29,7 +29,6 @@ const Avatar = styled.img`
   width: 75px;
   border-radius: 3px;
   margin-right: 15px;
-  border-top: 5px;
 `
 
 const InfoContainer = styled.div`
@@ -118,7 +117,7 @@ const Post = ({
           <StarIcon
             isLiked={isLiked}
             onClick={event =>
-              isLiked === 'true' ? handleDeleteLike(post.postID, event) : addAndHandleLike(post.postID, event)}/>
+              isLiked === true ? handleDeleteLike(post.postID, event) : addAndHandleLike(post.postID, event)}/>
           {hideLikeCount === true ? null : <div>{numberOfLikes}</div>}
         </ActionContainer>
       </LikeReplyContainer>

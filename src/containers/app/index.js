@@ -11,6 +11,7 @@ import Authenticate from 'containers/AuthenticateContainer'
 import FeedContainer from 'containers/FeedContainer'
 import LogoutContainer from 'containers/LogoutContainer'
 import * as userActions from 'modules/users'
+import * as usersLikesActions from 'modules/usersLikes'
 import { formatUserInfo } from 'helpers/utils'
 import { firebaseAuth } from 'config/constants'
 import { PublicRoute, PrivateRoute } from 'routeTypes.js'
@@ -31,6 +32,7 @@ class App extends Component {
     fetchingUserSuccess: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
     removeFetchingUser: PropTypes.func.isRequired,
+    setUsersLikes: PropTypes.func.isRequired,
     // withRouter
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
@@ -42,6 +44,7 @@ class App extends Component {
         const userInfo = formatUserInfo(user.providerData[0])
         this.props.authUser(user.uid)
         this.props.fetchingUserSuccess(user.uid, userInfo, Date.now())
+        this.props.setUsersLikes()
         if (this.props.location.pathname === '/') {
           this.props.history.push('feed')
         }
@@ -82,6 +85,6 @@ class App extends Component {
 export default withRouter(
   connect(
     ({ users: { isAuthed, isFetching } }) => ({ isAuthed, isFetching }),
-    dispatch => bindActionCreators(userActions, dispatch),
+    dispatch => bindActionCreators({ ...userActions, ...usersLikesActions }, dispatch),
   )(App),
 )
