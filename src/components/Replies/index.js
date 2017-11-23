@@ -45,7 +45,7 @@ const Reply = ({ comment }) => (
 )
 
 const Replies = ({ isFetching, error, replies }) => {
-  const replyIDs = Object.keys(replies)
+  const replyIDs = replies ? Object.keys(replies) : []
   return (
     <div>
       {replyIDs.length <= 0 ? <Prompt>{'Be the first to comment'}</Prompt> : null}

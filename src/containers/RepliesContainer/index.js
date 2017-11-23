@@ -6,13 +6,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import * as repliesActions from 'modules/replies'
+import { isReplyStale } from 'helpers/utils'
 
 class RepliesContainer extends Component {
   static propTypes = {
     isFetching: PropTypes.bool.isRequired,
     error: PropTypes.string.isRequired,
     lastUpdated: PropTypes.number.isRequired,
-    replies: PropTypes.object.isRequired,
+    replies: PropTypes.object,
     postID: PropTypes.string.isRequired,
     fetchAndHandleReplies: PropTypes.func.isRequired,
   }
@@ -21,7 +22,9 @@ class RepliesContainer extends Component {
     replies: {},
   }
   componentDidMount () {
-    this.props.fetchAndHandleReplies(this.props.postID)
+    if (isReplyStale(this.props.lastUpdated)) {
+      this.props.fetchAndHandleReplies(this.props.postID)
+    }
   }
   render () {
     return <Replies {...this.props} />
