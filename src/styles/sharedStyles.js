@@ -35,3 +35,8 @@ export const ActionButton = styled.button`
     background: #1877e6;
   }
 `
+export const Avatar = styled.img`
+  width: 75px;
+  border-radius: 3px;
+  margin-right: 15px;
+`

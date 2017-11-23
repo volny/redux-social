@@ -6,6 +6,7 @@ import PostContainer from 'containers/PostContainer'
 import { ContentContainer, ErrorMessage, ActionButton } from 'styles/sharedStyles'
 import Fetching from 'components/Fetching'
 import { formatReply } from 'helpers/utils'
+import RepliesContainer from 'containers/RepliesContainer'
 
 const MainContainer = styled.div`
   padding: 20px;
@@ -14,16 +15,8 @@ const MainContainer = styled.div`
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `
-const Content = styled.div`
-  flex: 4;
-`
-
-const RepliesContainer = styled.div`
-  flex: 3;
-`
-
 const ReplyTextAreaContainer = styled.div`
   display: flex;
   height: 110px;
@@ -58,7 +51,7 @@ const Reply = ({ submit }) => {
           this.textInput = input
         }}
         maxLength={140}
-        placeholder="Your response"
+        placeholder="Write your reply"
         type="text"/>
       <ActionButton onClick={handleSubmit}>{'Submit'}</ActionButton>
     </ReplyTextAreaContainer>
@@ -76,12 +69,9 @@ const PostDetails = ({ authedUser, postID, isFetching, error, addAndHandleReply 
         <Fetching />
       ) : (
         <Container>
-          <Content>
-            <PostContainer postID={postID} hideLikeCount={false} hideReplyBtn={true} />
-          </Content>
-          <RepliesContainer>
-            <Reply submit={replyText => addAndHandleReply(postID, formatReply(authedUser, replyText))} />
-          </RepliesContainer>
+          <PostContainer postID={postID} hideLikeCount={false} hideReplyBtn={true} />
+          <Reply submit={replyText => addAndHandleReply(postID, formatReply(authedUser, replyText))} />
+          <RepliesContainer postID={postID} />
         </Container>
       )}
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}

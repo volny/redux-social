@@ -6,6 +6,7 @@ import Reply from 'react-icons/lib/fa/mail-reply'
 import Star from 'react-icons/lib/fa/star'
 
 import { formatTimestamp } from 'helpers/utils'
+import { Avatar } from 'styles/sharedStyles'
 
 export const clickable = css`
   cursor: pointer;
@@ -28,12 +29,6 @@ const PostContainer = styled.div`
   max-width: 500px;
   margin: 1rem;
   color: #555555;
-`
-
-const Avatar = styled.img`
-  width: 75px;
-  border-radius: 3px;
-  margin-right: 15px;
 `
 
 const InfoContainer = styled.div`
