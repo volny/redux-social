@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import PostContainer from 'containers/PostContainer'
-import { ContentContainer, PageSubTitle, ErrorMessage } from 'styles/sharedStyles'
+import { ContentContainer, ErrorMessage, ActionButton } from 'styles/sharedStyles'
 import Fetching from 'components/Fetching'
+import { formatReply } from 'helpers/utils'
 
 const MainContainer = styled.div`
   padding: 20px;
@@ -44,7 +45,31 @@ const ReplyTextArea = styled.textarea`
   margin: 10px 0;
 `
 
-const PostDetails = ({ authedUser, postID, isFetching, error }) => (
+const Reply = ({ submit }) => {
+  const handleSubmit = event => {
+    if (this.textInput.value.length === 0) return
+    submit(this.textInput.value, event)
+    this.textInput.value = ''
+  }
+  return (
+    <ReplyTextAreaContainer>
+      <ReplyTextArea
+        innerRef={input => {
+          this.textInput = input
+        }}
+        maxLength={140}
+        placeholder="Your response"
+        type="text"/>
+      <ActionButton onClick={handleSubmit}>{'Submit'}</ActionButton>
+    </ReplyTextAreaContainer>
+  )
+}
+
+Reply.propTypes = {
+  submit: PropTypes.func.isRequired,
+}
+
+const PostDetails = ({ authedUser, postID, isFetching, error, addAndHandleReply }) => (
   <ContentContainer>
     <MainContainer>
       {isFetching === true ? (
@@ -54,7 +79,9 @@ const PostDetails = ({ authedUser, postID, isFetching, error }) => (
           <Content>
             <PostContainer postID={postID} hideLikeCount={false} hideReplyBtn={true} />
           </Content>
-          <RepliesContainer>reply section</RepliesContainer>
+          <RepliesContainer>
+            <Reply submit={replyText => addAndHandleReply(postID, formatReply(authedUser, replyText))} />
+          </RepliesContainer>
         </Container>
       )}
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
@@ -67,6 +94,7 @@ PostDetails.propTypes = {
   postID: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
+  addAndHandleReply: PropTypes.func.isRequired,
 }
 
 export default PostDetails

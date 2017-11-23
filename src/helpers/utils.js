@@ -16,3 +16,11 @@ export const formatTimestamp = timestamp => {
   const date = new Date(timestamp)
   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
 }
+
+export const formatReply = ({ info: { name, avatar, uid } }, reply) => ({
+  timestamp: Date.now(),
+  name,
+  uid,
+  avatar,
+  reply,
+})

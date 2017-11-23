@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { ContentContainer, PageSubTitle, ErrorMessage } from 'styles/sharedStyles'
+import { ContentContainer, ErrorMessage } from 'styles/sharedStyles'
 import AuthButton from 'components/AuthButton'
 import Logo from 'logo.png'
 

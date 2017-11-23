@@ -34,6 +34,7 @@ class PostDetailsContainer extends Component {
   render () {
     return (
       <PostDetails
+        addAndHandleReply={(postID, reply) => console.log('id: ' + postID, 'reply: ', reply)}
         authedUser={this.props.authedUser}
         postID={this.props.postID}
         isFetching={this.props.isFetching}
