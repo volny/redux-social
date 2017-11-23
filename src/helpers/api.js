@@ -55,3 +55,10 @@ export const fetchLikeCount = async postID => {
   const snapshot = await ref.child(`likeCount/${postID}`).once('value')
   return snapshot.val()
 }
+
+export const postReply = (postID, reply) => {
+  const replyID = ref.child(`replies/${postID}`).push().key
+  const replyWithID = { ...reply, replyID }
+  const replyPromise = ref.child(`replies/${postID}/${replyID}`).set(replyWithID)
+  return { replyWithID, replyPromise }
+}

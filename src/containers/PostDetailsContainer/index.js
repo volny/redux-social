@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import PostDetails from 'components/PostDetails'
 import * as postsActions from 'modules/posts'
 import * as likeCountActions from 'modules/likeCount'
+import * as repliesActions from 'modules/replies'
 
 class PostDetailsContainer extends Component {
   static propTypes = {
@@ -18,6 +19,7 @@ class PostDetailsContainer extends Component {
     fetchAndHandlePost: PropTypes.func.isRequired,
     postAlreadyFetched: PropTypes.bool.isRequired,
     initLikeFetch: PropTypes.func.isRequired,
+    addAndHandleReply: PropTypes.func.isRequired,
     // withRouter
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
@@ -34,7 +36,7 @@ class PostDetailsContainer extends Component {
   render () {
     return (
       <PostDetails
-        addAndHandleReply={(postID, reply) => console.log('id: ' + postID, 'reply: ', reply)}
+        addAndHandleReply={this.props.addAndHandleReply}
         authedUser={this.props.authedUser}
         postID={this.props.postID}
         isFetching={this.props.isFetching}
@@ -52,6 +54,7 @@ const mapStateToProps = ({ posts, likeCount, users }, { match }) => ({
   postAlreadyFetched: !!posts[match.params.postID],
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ ...postsActions, ...likeCountActions }, dispatch)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ ...postsActions, ...likeCountActions, ...repliesActions }, dispatch)
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostDetailsContainer))

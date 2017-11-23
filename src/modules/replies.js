@@ -1,3 +1,4 @@
+import { postReply } from 'helpers/api'
 const FETCHING_REPLIES = 'FETCHING_REPLIES'
 const FETCHING_REPLIES_ERROR = 'FETCHING_REPLIES_ERROR'
 const FETCHING_REPLIES_SUCCESS = 'FETCHING_REPLIES_SUCCESS'
@@ -43,7 +44,14 @@ const fetchingRepliesSuccess = (postID, replies) => ({
   lastUpdated: Date.now(),
 })
 
-export const addAndHandleReply = (postID, reply) => (dispatch, getState) => {}
+export const addAndHandleReply = (postID, reply) => (dispatch, getState) => {
+  const { replyWithID, replyPromise } = postReply(postID, reply)
+  dispatch(addReply(postID, replyWithID))
+  replyPromise.catch(error => {
+    dispatch(removeReply(postID, replyWithID.replyID))
+    dispatch(addReplyError(error))
+  })
+}
 
 const initialReply = {
   name: '',
