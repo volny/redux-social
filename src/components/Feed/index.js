@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Spinner from 'react-spinkit'
 
 import { ContentContainer, PageSubTitle, ErrorMessage } from 'styles/sharedStyles'
 import PostContainer from 'containers/PostContainer'
+import Fetching from 'components/Fetching'
 
 const NewPostContainer = styled.div`
   background: #4a90e2;
@@ -12,15 +12,6 @@ const NewPostContainer = styled.div`
   text-align: center;
   padding: 5px;
   cursor: pointer;
-`
-
-const Loading = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
-const StyledSpinner = styled(Spinner)`
-  margin: 0.5rem 0 0 1rem;
 `
 
 const NewPostsAvailable = ({ handleClick }) => (
@@ -34,10 +25,7 @@ NewPostsAvailable.propTypes = {
 const Feed = ({ isFetching, resetNewPostsAvailable, newPostsAvailable, postIDs, error }) => (
   <ContentContainer>
     {isFetching === true ? (
-      <Loading>
-        <PageSubTitle>{'Fetching'}</PageSubTitle>
-        <StyledSpinner name="circle" color="#0592ff" />
-      </Loading>
+      <Fetching />
     ) : (
       <div>
         {newPostsAvailable ? <NewPostsAvailable handleClick={resetNewPostsAvailable} /> : null}

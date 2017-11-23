@@ -11,9 +11,7 @@ const StyledButton = styled(ActionButton)`
 `
 
 const AuthButton = ({ provider, isFetching, onAuth }) => (
-  <StyledButton onClick={onAuth}>
-    {isFetching === true ? 'Loading' : `Login with ${provider.toUpperCase()}`}
-  </StyledButton>
+  <StyledButton onClick={onAuth}>{`Login with ${provider.toUpperCase()}`}</StyledButton>
 )
 
 AuthButton.propTypes = {

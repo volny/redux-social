@@ -1,4 +1,4 @@
-import { savePost } from 'helpers/api'
+import { savePost, fetchPost } from 'helpers/api'
 import { closeModal } from 'modules/modal'
 import { addSingleUsersPost } from 'modules/usersPosts'
 
@@ -26,7 +26,7 @@ const fetchingPostSuccess = post => ({
   post,
 })
 
-const removeFetching = () => ({
+export const removeFetching = () => ({
   type: REMOVE_FETCHING,
 })
 
@@ -51,6 +51,16 @@ export const addMultiplePosts = posts => ({
   type: ADD_MULTIPLE_POSTS,
   posts,
 })
+
+export const fetchAndHandlePost = postID => async dispatch => {
+  dispatch(fetchingPost())
+  try {
+    const post = await fetchPost(postID)
+    dispatch(fetchingPostSuccess(post))
+  } catch (error) {
+    dispatch(fetchingPostError(error))
+  }
+}
 
 const initialState = {
   isFetching: true,

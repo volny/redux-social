@@ -45,3 +45,8 @@ export const incrementNumberOfLikes = postID =>
 
 export const decrementNumberOfLikes = postID =>
   ref.child(`likeCount/${postID}`).transaction((currentValue = 0) => currentValue - 1)
+
+export const fetchPost = async postID => {
+  const snapshot = await ref.child(`posts/${postID}`).once('value')
+  return snapshot.val()
+}
