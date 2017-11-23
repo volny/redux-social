@@ -7,10 +7,11 @@ import { PageSubTitle } from 'styles/sharedStyles'
 const Container = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
 `
 
 const StyledSpinner = styled(Spinner)`
-  margin: 0.5rem 0 0 1rem;
+  margin: 0.6rem 0 0 1rem;
 `
 
 const Fetching = () => (

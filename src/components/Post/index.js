@@ -1,20 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import Reply from 'react-icons/lib/fa/mail-reply'
 import Star from 'react-icons/lib/fa/star'
 
 import { formatTimestamp } from 'helpers/utils'
-import { Avatar } from 'styles/sharedStyles'
-
-export const clickable = css`
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  &:hover {
-    transform: scale(1.1);
-  }
-`
+import { Avatar, clickable } from 'styles/sharedStyles'
 
 const PostContainer = styled.div`
   background: #fcfcfc;

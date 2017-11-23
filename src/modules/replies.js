@@ -1,4 +1,5 @@
-import { postReply } from 'helpers/api'
+import { postReply, fetchReplies } from 'helpers/api'
+
 const FETCHING_REPLIES = 'FETCHING_REPLIES'
 const FETCHING_REPLIES_ERROR = 'FETCHING_REPLIES_ERROR'
 const FETCHING_REPLIES_SUCCESS = 'FETCHING_REPLIES_SUCCESS'
@@ -51,6 +52,16 @@ export const addAndHandleReply = (postID, reply) => (dispatch, getState) => {
     dispatch(removeReply(postID, replyWithID.replyID))
     dispatch(addReplyError(error))
   })
+}
+
+export const fetchAndHandleReplies = postID => async dispatch => {
+  dispatch(fetchingReplies())
+  try {
+    const replies = await fetchReplies(postID)
+    dispatch(fetchingRepliesSuccess(postID, replies, Date.now()))
+  } catch (error) {
+    dispatch(fetchingRepliesError(error))
+  }
 }
 
 const initialReply = {

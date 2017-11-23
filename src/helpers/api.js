@@ -62,3 +62,8 @@ export const postReply = (postID, reply) => {
   const replyPromise = ref.child(`replies/${postID}/${replyID}`).set(replyWithID)
   return { replyWithID, replyPromise }
 }
+
+export const fetchReplies = async postID => {
+  const snapshot = await ref.child(`replies/${postID}`).once('value')
+  return snapshot.val()
+}

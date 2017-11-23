@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const ContentContainer = styled.div`
   display: flex;
@@ -39,4 +39,11 @@ export const Avatar = styled.img`
   width: 75px;
   border-radius: 3px;
   margin-right: 15px;
+`
+export const clickable = css`
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
 `
