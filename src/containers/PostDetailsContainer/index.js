@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux'
 
 import PostDetails from 'components/PostDetails'
 import * as postsActions from 'modules/posts'
+import * as likeCountActions from 'modules/likeCount'
 
 class PostDetailsContainer extends Component {
   static propTypes = {
@@ -16,12 +17,14 @@ class PostDetailsContainer extends Component {
     removeFetching: PropTypes.func.isRequired,
     fetchAndHandlePost: PropTypes.func.isRequired,
     postAlreadyFetched: PropTypes.bool.isRequired,
+    initLikeFetch: PropTypes.func.isRequired,
     // withRouter
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
   }
   componentDidMount () {
+    this.props.initLikeFetch(this.props.postID)
     if (this.props.postAlreadyFetched === false) {
       this.props.fetchAndHandlePost(this.props.postID)
     } else {
@@ -48,6 +51,6 @@ const mapStateToProps = ({ posts, likeCount, users }, { match }) => ({
   postAlreadyFetched: !!posts[match.params.postID],
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators(postsActions, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ ...postsActions, ...likeCountActions }, dispatch)
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostDetailsContainer))

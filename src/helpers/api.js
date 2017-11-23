@@ -50,3 +50,8 @@ export const fetchPost = async postID => {
   const snapshot = await ref.child(`posts/${postID}`).once('value')
   return snapshot.val()
 }
+
+export const fetchLikeCount = async postID => {
+  const snapshot = await ref.child(`likeCount/${postID}`).once('value')
+  return snapshot.val()
+}

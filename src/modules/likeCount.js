@@ -1,4 +1,6 @@
 import { ADD_LIKE, REMOVE_LIKE } from 'modules/usersLikes'
+import { fetchLikeCount } from 'helpers/api'
+
 const FETCHING_COUNT = 'FETCHING_COUNT'
 const FETCHING_COUNT_ERROR = 'FETCHING_COUNT_ERROR'
 const FETCHING_COUNT_SUCCESS = 'FETCHING_COUNT_SUCCESS'
@@ -20,6 +22,16 @@ const fetchingCountSuccess = (postID, count) => ({
   postID,
   count,
 })
+
+export const initLikeFetch = postID => async dispatch => {
+  dispatch(fetchingCount())
+  try {
+    const count = await fetchLikeCount(postID)
+    dispatch(fetchingCountSuccess(postID, count))
+  } catch (error) {
+    dispatch(fetchingCountError(error))
+  }
+}
 
 const count = (state = 0, { type }) => {
   switch (type) {
