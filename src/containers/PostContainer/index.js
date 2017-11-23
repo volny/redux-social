@@ -22,8 +22,6 @@ class PostContainer extends Component {
     hideReplyBtn: PropTypes.bool.isRequired,
     handleDeleteLike: PropTypes.func.isRequired,
     addAndHandleLike: PropTypes.func.isRequired,
-    // withRouter
-    match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
   }

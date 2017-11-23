@@ -146,10 +146,7 @@ Post.propTypes = {
   hideReplyBtn: PropTypes.bool.isRequired,
   hideLikeCount: PropTypes.bool.isRequired,
   goToProfile: PropTypes.func.isRequired,
-  // withRouter
-  match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
 }
 
 export default withRouter(Post)

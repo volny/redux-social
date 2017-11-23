@@ -20,10 +20,7 @@ class PostDetailsContainer extends Component {
     postAlreadyFetched: PropTypes.bool.isRequired,
     initLikeFetch: PropTypes.func.isRequired,
     addAndHandleReply: PropTypes.func.isRequired,
-    // withRouter
     match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
   }
   componentDidMount () {
     this.props.initLikeFetch(this.props.postID)

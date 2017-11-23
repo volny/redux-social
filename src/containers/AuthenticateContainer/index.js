@@ -12,9 +12,6 @@ class AuthenticateContainer extends Component {
     isFetching: PropTypes.bool.isRequired,
     error: PropTypes.string.isRequired,
     fetchAndHandleAuthedUser: PropTypes.func.isRequired,
-    // withRouter
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
   }
 

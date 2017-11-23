@@ -10,7 +10,6 @@ import Authenticate from 'containers/AuthenticateContainer'
 import FeedContainer from 'containers/FeedContainer'
 import LogoutContainer from 'containers/LogoutContainer'
 import PostDetailsContainer from 'containers/PostDetailsContainer'
-import UserContainer from 'containers/UserContainer'
 import * as userActions from 'modules/users'
 import * as usersLikesActions from 'modules/usersLikes'
 import { formatUserInfo } from 'helpers/utils'
@@ -34,8 +33,6 @@ class App extends Component {
     isFetching: PropTypes.bool.isRequired,
     removeFetchingUser: PropTypes.func.isRequired,
     setUsersLikes: PropTypes.func.isRequired,
-    // withRouter
-    match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
   }
@@ -73,11 +70,6 @@ class App extends Component {
                 authed={this.props.isAuthed}
                 path="/post/:postID"
                 component={PostDetailsContainer}/>
-              <PrivateRoute
-                exact={true}
-                authed={this.props.isAuthed}
-                path="/:uid"
-                component={UserContainer}/>
               <PrivateRoute
                 exact={true}
                 authed={this.props.isAuthed}
