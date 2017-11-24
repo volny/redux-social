@@ -15,14 +15,6 @@ const PostButton = styled(ActionButton)`
 `
 
 const modalStyles = {
-  content: {
-    width: 350,
-    margin: '0px auto',
-    height: 228,
-    borderRadius: 5,
-    background: '#EBEBEB',
-    padding: 0,
-  },
   overlay: {
     position: 'fixed',
     top: '100px',
@@ -31,11 +23,19 @@ const modalStyles = {
     bottom: 0,
     backgroundColor: 'rgba(255, 255, 255, 0.75)',
   },
+  content: {
+    width: 350,
+    margin: '0px auto',
+    height: 240,
+    borderRadius: 5,
+    background: '#eeeeee',
+    padding: 0,
+  },
 }
 
 const ModalTop = styled.div`
-  background: #fff;
-  padding: 11px;
+  background: #eeeeee;
+  padding: 5px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -43,13 +43,14 @@ const ModalTop = styled.div`
 `
 
 const ModalHeading = styled.span`
-  font-size: 18px;
+  font-size: 20px;
+  margin: 2px 0 0 5px;
 `
 
 const ModalTextareaContainer = styled.div`
   display: flex;
   height: 110px;
-  margin: 10px 10px 4px 10px;
+  margin: 5px 10px 4px 10px;
 `
 
 const ModalButtonContainer = styled.div`
@@ -60,6 +61,7 @@ const ModalButtonContainer = styled.div`
 
 const SubmitButton = styled(ActionButton)`
   color: #ffffff;
+  margin-top: 11px;
   &:hover {
     background: #1877e6;
   }
@@ -78,8 +80,13 @@ const NewPostInput = styled.textarea`
 `
 
 const ModalCloseButton = styled.span`
+  cursor: pointer;
+  color: #0592ff;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 30px;
+  &:hover {
+    color: #1877e6;
+  }
 `
 
 const Modal = ({
@@ -100,9 +107,7 @@ const Modal = ({
       <ReactModal style={modalStyles} isOpen={isOpen} onRequestClose={closeModal}>
         <ModalTop>
           <ModalHeading>{'Compose new Post'}</ModalHeading>
-          <ModalCloseButton onClick={closeModal} style={{ cursor: 'pointer' }}>
-            {'×'}
-          </ModalCloseButton>
+          <ModalCloseButton onClick={closeModal}>{'×'}</ModalCloseButton>
         </ModalTop>
         <ModalTextareaContainer>
           <NewPostInput
