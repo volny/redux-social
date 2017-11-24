@@ -17,8 +17,11 @@ const PostContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  min-width: 80%;
-  max-width: 500px;
+  align-self: center;
+
+  width: 500px;
+  max-width: 80%;
+
   margin: 1rem;
   color: #555555;
 `
@@ -41,9 +44,7 @@ const PostHeader = styled.div`
   font-weight: bold;
 `
 
-const Author = styled.div`
-  ${clickable};
-`
+const Author = styled.div``
 
 const Text = styled.div`
   padding: 8px 0;
@@ -108,7 +109,11 @@ const Post = ({
           <StarIcon
             style={{ color: isLiked === true ? '#4a90e2' : '#555555' }}
             onClick={event =>
-              isLiked === true ? handleDeleteLike(post.postID, event) : addAndHandleLike(post.postID, event)}/>
+              location.pathname === '/feed'
+                ? isLiked === true
+                  ? handleDeleteLike(post.postID, event)
+                  : addAndHandleLike(post.postID, event)
+                : null}/>
           {hideLikeCount === true ? null : <div>{numberOfLikes}</div>}
         </ActionContainer>
       </LikeReplyContainer>
