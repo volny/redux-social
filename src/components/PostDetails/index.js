@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import PostContainer from 'containers/PostContainer'
-import { ContentContainer, ErrorMessage, ActionButton } from 'styles/sharedStyles'
+import { ContentContainer, ErrorMessage, ActionButton, ElementContainer } from 'styles/sharedStyles'
 import Fetching from 'components/Fetching'
 import { formatReply } from 'helpers/utils'
 import RepliesContainer from 'containers/RepliesContainer'
@@ -16,16 +16,16 @@ const MainContainer = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
 `
 const ReplyTextAreaContainer = styled.div`
   display: flex;
-  height: 110px;
-  margin: 10px;
   width: 70%;
-  margin: 15px auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  height: 160px;
 `
 
 const ReplyTextArea = styled.textarea`
@@ -36,6 +36,11 @@ const ReplyTextArea = styled.textarea`
   resize: none;
   border: 1px solid #ccc;
   margin: 10px 0;
+  height: 5rem;
+`
+
+const ReplyContainer = styled(ElementContainer)`
+  background: transparent;
 `
 
 const Reply = ({ submit }) => {
@@ -70,7 +75,9 @@ const PostDetails = ({ authedUser, postID, isFetching, error, addAndHandleReply 
       ) : (
         <Container>
           <PostContainer postID={postID} hideLikeCount={false} hideReplyBtn={true} />
-          <Reply submit={replyText => addAndHandleReply(postID, formatReply(authedUser, replyText))} />
+          <ReplyContainer>
+            <Reply submit={replyText => addAndHandleReply(postID, formatReply(authedUser, replyText))} />
+          </ReplyContainer>
           <RepliesContainer postID={postID} />
         </Container>
       )}

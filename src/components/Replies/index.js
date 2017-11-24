@@ -2,17 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
-import { Avatar, clickable, ErrorMessage } from 'styles/sharedStyles'
+import { Avatar, clickable, ErrorMessage, ElementContainer, PageSubTitle } from 'styles/sharedStyles'
 import Fetching from 'components/Fetching'
 import { formatTimestamp } from 'helpers/utils'
 
-const ReplyContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-  flex-direction: row;
+const ReplyContainer = styled(ElementContainer)`
   font-size: 18px;
-  margin: 7px;
-  padding: 15px;
+  align-self: center;
+  max-width: 400px;
 `
 
 const cushion = css`
@@ -33,6 +30,10 @@ const TextContainer = styled.div`
   padding: 5px 0;
 `
 
+const RepliesHeading = styled(PageSubTitle)`
+  padding: 1rem 0 0 0;
+`
+
 const Reply = ({ comment }) => (
   <ReplyContainer>
     <Avatar src={comment.avatar} alt={comment.name} />
@@ -48,6 +49,7 @@ const Replies = ({ isFetching, error, replies }) => {
   const replyIDs = replies ? Object.keys(replies) : []
   return (
     <div>
+      <RepliesHeading>Replies</RepliesHeading>
       {replyIDs.length <= 0 ? <Prompt>{'Be the first to comment'}</Prompt> : null}
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       {isFetching === true ? (

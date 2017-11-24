@@ -13,6 +13,7 @@ export const PageSubTitle = styled.h2`
   font-size: 2rem;
   margin: 0;
   padding: 0;
+  text-align: center;
 `
 
 export const ErrorMessage = styled.p`
@@ -46,4 +47,22 @@ export const clickable = css`
   &:hover {
     transform: scale(1.1);
   }
+`
+
+export const ElementContainer = styled.div`
+  background: #fcfcfc;
+  padding: 1rem;
+  border-radius: 2px;
+  color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-self: center;
+
+  width: 500px;
+  max-width: 80%;
+
+  margin: 1rem;
+  color: #555555;
 `

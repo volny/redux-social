@@ -6,25 +6,7 @@ import Reply from 'react-icons/lib/fa/mail-reply'
 import Star from 'react-icons/lib/fa/star'
 
 import { formatTimestamp } from 'helpers/utils'
-import { Avatar, clickable } from 'styles/sharedStyles'
-
-const PostContainer = styled.div`
-  background: #fcfcfc;
-  padding: 1rem;
-  border-radius: 2px;
-  color: transparent;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  align-self: center;
-
-  width: 500px;
-  max-width: 80%;
-
-  margin: 1rem;
-  color: #555555;
-`
+import { Avatar, clickable, ElementContainer } from 'styles/sharedStyles'
 
 const InfoContainer = styled.div`
   display: flex;
@@ -94,7 +76,9 @@ const Post = ({
   hideLikeCount,
   numberOfLikes,
 }) => (
-  <PostContainer style={{ cursor: location.pathname === '/feed' ? 'pointer' : 'default' }} onClick={onClick}>
+  <ElementContainer
+    style={{ cursor: location.pathname === '/feed' ? 'pointer' : 'default' }}
+    onClick={onClick}>
     <Avatar src={post.avatar} alt={`Avatar for ${post.name}`} />
     <InfoContainer>
       <PostHeader>
@@ -118,7 +102,7 @@ const Post = ({
         </ActionContainer>
       </LikeReplyContainer>
     </InfoContainer>
-  </PostContainer>
+  </ElementContainer>
 )
 
 Post.propTypes = {
